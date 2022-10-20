@@ -42,23 +42,25 @@ namespace Ruinsmagus_bhaptics
         public class bhaptics_CastPrimarySpell
         {
             [HarmonyPostfix]
-            public static void Postfix()
+            public static void Postfix(App.Magics.MasterData.MagicMasterData magicData)
             {
-                tactsuitVr.CastSpell("Fire", true);
+                string magicPattern = "Fire";
+                switch (magicData.magicType)
+                {
+                    case App.Magics.MasterData.MagicType.Default:
+                        magicPattern = "Fire";
+                        break;
+                    case App.Magics.MasterData.MagicType.Skill:
+                        magicPattern = "Fire";
+                        break;
+                    default:
+                        magicPattern = "Fire";
+                        break;
+                }
+                tactsuitVr.CastSpell(magicPattern, true);
             }
         }
         
-
-        [HarmonyPatch(typeof(App.Players.AvatarMangers.Cartridges.HandCartridgesManager), "PlayReloadSoundEffects", new Type[] {  })]
-        public class bhaptics_ReloadCartridges
-        {
-            [HarmonyPostfix]
-            public static void Postfix()
-            {
-                tactsuitVr.LOG("bhaptics_ReloadSoundEffect");
-                tactsuitVr.PlaybackHaptics("HeartBeat");
-            }
-        }
 
         [HarmonyPatch(typeof(App.Items.ConsumableItems.BaseConsumableItem), "Consume", new Type[] { })]
         public class bhaptics_ConsumeItem
@@ -87,7 +89,17 @@ namespace Ruinsmagus_bhaptics
             [HarmonyPostfix]
             public static void Postfix()
             {
-                tactsuitVr.PlaybackHaptics("RecoilBlockVest_L");
+                tactsuitVr.Block(!rightHanded);
+            }
+        }
+
+        [HarmonyPatch(typeof(App.Equipments.Shields.Views.ShieldBodyView), "OnParrySucceed", new Type[] { })]
+        public class bhaptics_ShieldParries
+        {
+            [HarmonyPostfix]
+            public static void Postfix()
+            {
+                tactsuitVr.Block(!rightHanded);
             }
         }
 
@@ -97,8 +109,8 @@ namespace Ruinsmagus_bhaptics
             [HarmonyPostfix]
             public static void Postfix(App.Players.BattleSystems.PlayerDamageManager __instance, int currentHealth, bool isIncrease)
             {
-                //if (currentHealth * 1.0f <= 0.25f * __instance) tactsuitVr.StartHeartBeat();
-                //else tactsuitVr.StopHeartBeat();
+                if (currentHealth <= 66) tactsuitVr.StartHeartBeat();
+                else tactsuitVr.StopHeartBeat();
                 tactsuitVr.LOG("Health: " + currentHealth.ToString());
                 if (isIncrease) return;
                 tactsuitVr.PlaybackHaptics("Impact");

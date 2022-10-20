@@ -164,6 +164,21 @@ namespace MyBhapticsTactsuit
             else { PlayBackHit(key, hitAngle, 0.5f); }
         }
 
+        public void Block(bool isRight, float intensity = 1.0f)
+        {
+            float duration = 1.0f;
+            var scaleOption = new bHapticsLib.ScaleOption(intensity, duration);
+            var rotationFront = new bHapticsLib.RotationOption(0f, 0f);
+            string postFix = "_L";
+            if (isRight) postFix = "_R";
+            string keyVest = "BlockVest" + postFix;
+            string keyArm = "BlockArm" + postFix;
+            string keyHand = "BlockHand" + postFix;
+            bHapticsLib.bHapticsManager.PlayRegistered(keyHand, keyHand, scaleOption, rotationFront);
+            bHapticsLib.bHapticsManager.PlayRegistered(keyArm, keyArm, scaleOption, rotationFront);
+            bHapticsLib.bHapticsManager.PlayRegistered(keyVest, keyVest, scaleOption, rotationFront);
+        }
+
         public void StartHeartBeat()
         {
             HeartBeat_mrse.Set();
