@@ -57,7 +57,7 @@ namespace Ruinsmagus_bhaptics
                         magicPattern = "Fire";
                         break;
                 }
-                tactsuitVr.CastSpell(magicPattern, true);
+                tactsuitVr.CastSpell(magicPattern, rightHanded);
             }
         }
         
@@ -68,7 +68,7 @@ namespace Ruinsmagus_bhaptics
             [HarmonyPostfix]
             public static void Postfix()
             {
-                tactsuitVr.PlaybackHaptics("Eating");
+                tactsuitVr.PlaybackHaptics("Drinking");
             }
         }
 
@@ -111,7 +111,7 @@ namespace Ruinsmagus_bhaptics
             {
                 if (currentHealth <= 66) tactsuitVr.StartHeartBeat();
                 else tactsuitVr.StopHeartBeat();
-                tactsuitVr.LOG("Health: " + currentHealth.ToString());
+                //tactsuitVr.LOG("Health: " + currentHealth.ToString());
                 if (isIncrease) return;
                 tactsuitVr.PlaybackHaptics("Impact");
             }
