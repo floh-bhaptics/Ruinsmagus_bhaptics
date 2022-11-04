@@ -67,6 +67,10 @@
       <HintPath>F:\SteamLibrary\steamapps\common\RUINSMAGUS\MelonLoader\Managed\UnityEngine.PhysicsModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="ValueTupleBridge">
+      <HintPath>F:\SteamLibrary\steamapps\common\RUINSMAGUS\MelonLoader\ValueTupleBridge.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MyBhapticsTactsuit.cs" />

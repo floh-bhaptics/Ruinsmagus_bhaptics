@@ -81,8 +81,32 @@ namespace Ruinsmagus_bhaptics
                 tactsuitVr.StopThreads();
             }
         }
+        /*
+        [HarmonyPatch(typeof(App.Magics.Cartridges.MagicCartridge), "Eject", new Type[] { })]
+        public class bhaptics_EjectCartidges
+        {
+            [HarmonyPostfix]
+            public static void Postfix(App.Magics.Cartridges.MagicCartridge __instance)
+            {
+                if (__instance.)
+                if (tactsuitVr.IsPlaying("ReloadCartridges_R")) return;
+                if (tactsuitVr.IsPlaying("ReloadCartridges_L")) return;
+                if (rightHanded) tactsuitVr.PlaybackHaptics("ReloadCartridges_R");
+                else tactsuitVr.PlaybackHaptics("ReloadCartridges_L");
+            }
+        }
 
-        
+        [HarmonyPatch(typeof(App.Players.AvatarMangers.Cartridges.HandCartridgesManager), "Reload", new Type[] { })]
+        public class bhaptics_ReloadGauntlet
+        {
+            [HarmonyPostfix]
+            public static void Postfix()
+            {
+                if (rightHanded) tactsuitVr.PlaybackHaptics("ReloadCartridges_R");
+                else tactsuitVr.PlaybackHaptics("ReloadCartridges_L");
+            }
+        }        
+        */
         [HarmonyPatch(typeof(App.Equipments.Shields.Views.ShieldBodyView), "OnGuardSucceed", new Type[] {  })]
         public class bhaptics_ShieldAttacked
         {
