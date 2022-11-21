@@ -81,6 +81,19 @@ namespace Ruinsmagus_bhaptics
                 tactsuitVr.StopThreads();
             }
         }
+
+        [HarmonyPatch(typeof(LocomotionTeleport), "DoTeleport", new Type[] { })]
+        public class bhaptics_Teleport
+        {
+            [HarmonyPostfix]
+            public static void Postfix()
+            {
+                tactsuitVr.PlaybackHaptics("Teleport");
+            }
+        }
+
+
+
         /*
         [HarmonyPatch(typeof(App.Magics.Cartridges.MagicCartridge), "Eject", new Type[] { })]
         public class bhaptics_EjectCartidges
